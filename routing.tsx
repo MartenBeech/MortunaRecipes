@@ -6,7 +6,7 @@ import { ViewRecipePage } from "./src/pages/ViewRecipePage";
 import { EditRecipePage } from "./src/pages/EditRecipePage";
 import { LoginPage } from "./src/pages/LoginPage";
 import { CartPage } from "./src/pages/CartPage";
-import { Button, Pressable, Image, Text, StyleSheet, View } from "react-native";
+import { Pressable, Image, StyleSheet, View } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,30 +15,31 @@ export const Routing = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={({ route, navigation }) => ({
-          headerRight: () => (
-            <View style={styles.row}>
-              <Pressable
-                onPress={() => {
-                  navigation.navigate("MainPage");
-                }}
-              >
-                <Image
-                  style={styles.headerIcon}
-                  source={require("./src/images/Logo.png")}
-                />
-              </Pressable>
-              <Pressable
-                onPress={() => {
-                  navigation.navigate("CartPage");
-                }}
-              >
-                <Image
-                  style={styles.headerIcon}
-                  source={require("./src/images/Cart.png")}
-                />
-              </Pressable>
-            </View>
-          ),
+          headerRight: () =>
+            route.name != "Login" && (
+              <View style={styles.row}>
+                <Pressable
+                  onPress={() => {
+                    navigation.navigate("MainPage");
+                  }}
+                >
+                  <Image
+                    style={styles.headerIcon}
+                    source={require("./src/images/Logo.png")}
+                  />
+                </Pressable>
+                <Pressable
+                  onPress={() => {
+                    navigation.navigate("CartPage");
+                  }}
+                >
+                  <Image
+                    style={styles.headerIcon}
+                    source={require("./src/images/Cart.png")}
+                  />
+                </Pressable>
+              </View>
+            ),
         })}
       >
         <Stack.Screen
