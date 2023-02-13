@@ -56,7 +56,6 @@ export const MainPage = (props: Props) => {
             const recipeImage = images.find(
               (image) => image.name === recipe.id.toString()
             );
-            console.log(recipeImage);
             return (
               <Pressable
                 style={styles.box}
