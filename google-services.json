@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "672641012153",
+    "project_id": "mortunarecipes",
+    "storage_bucket": "mortunarecipes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672641012153:android:ed2a9f10f25e66cd34a668",
+        "android_client_info": {
+          "package_name": "com.mortenbech.MortunaRecipes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672641012153-nbh1pqh06o5bfvqs3t61hr87jsak7ptn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuO6Y8zDFDf6tfQQ9lbwigARBWd0a0ufY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672641012153-nbh1pqh06o5bfvqs3t61hr87jsak7ptn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
