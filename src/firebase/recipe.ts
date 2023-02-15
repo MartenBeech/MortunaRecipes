@@ -1,4 +1,11 @@
-import { doc, getDoc, collection, setDoc, getDocs } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  collection,
+  setDoc,
+  getDocs,
+  deleteDoc,
+} from "firebase/firestore";
 import { CreateRecipe, Recipe } from "../entities/recipe";
 import { loginName } from "../pages/LoginPage";
 import { db } from "./config";
@@ -30,7 +37,13 @@ export async function getRecipes(): Promise<Recipe[]> {
 export async function createRecipe(props: CreateRecipe) {
   if (!props.id) {
     const recipes = await getRecipes();
-    props.id = recipes.length + 1;
+    let highestId = recipes.length;
+    recipes.map((recipe) => {
+      if (recipe.id > highestId) {
+        highestId = recipe.id;
+      }
+    });
+    props.id = highestId + 1;
   }
 
   if (props.image) {
@@ -45,4 +58,8 @@ export async function createRecipe(props: CreateRecipe) {
     lastUsed: new Date().toString(),
   } as Recipe);
   return props.id;
+}
+
+export async function deleteRecipe(id: number) {
+  await deleteDoc(doc(db, "users", loginName, "recipes", id.toString()));
 }

@@ -9,10 +9,9 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-import { Button } from "react-native-paper";
 import { Ingredient } from "../entities/recipe";
 import { createCart } from "../firebase/cart";
-import { createRecipe, getRecipe } from "../firebase/recipe";
+import { createRecipe, deleteRecipe, getRecipe } from "../firebase/recipe";
 import {
   ImagePickerResult,
   launchImageLibraryAsync,
@@ -102,6 +101,11 @@ export const EditRecipePage = (props: Props) => {
     props.navigation.navigate("CartPage");
   };
 
+  const trash = async () => {
+    await deleteRecipe(pageId);
+    props.navigation.navigate("MainPage");
+  };
+
   const submitImage = async (result: ImagePickerResult) => {
     if (result && result.assets) {
       const data = result.assets[0];
@@ -188,7 +192,7 @@ export const EditRecipePage = (props: Props) => {
             <View style={styles.row}>
               <Text style={styles.submitText}>Submit</Text>
               <Image
-                style={styles.cartImage}
+                style={styles.buttonImage}
                 source={require("../images/Save.png")}
               ></Image>
             </View>
@@ -197,12 +201,25 @@ export const EditRecipePage = (props: Props) => {
             <View style={styles.row}>
               <Text style={styles.submitText}>Add to Cart</Text>
               <Image
-                style={styles.cartImage}
+                style={styles.buttonImage}
                 source={require("../images/Cart.png")}
               ></Image>
             </View>
           </Pressable>
         </View>
+        {pageId > 0 && (
+          <View style={styles.submission}>
+            <Pressable style={styles.trashButton} onPress={trash}>
+              <View style={styles.row}>
+                <Text style={styles.submitText}>Delete</Text>
+                <Image
+                  style={styles.buttonImage}
+                  source={require("../images/Trash.png")}
+                ></Image>
+              </View>
+            </Pressable>
+          </View>
+        )}
       </View>
     </ScrollView>
   );
@@ -263,6 +280,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 5,
   },
+  trashButton: {
+    backgroundColor: "#C80E17",
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+  },
   submitText: {
     color: "#FFF",
     fontSize: 20,
@@ -274,7 +298,7 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     marginRight: "2%",
   },
-  cartImage: {
+  buttonImage: {
     height: 30,
     width: 30,
     resizeMode: "contain",
