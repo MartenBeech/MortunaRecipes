@@ -49,6 +49,8 @@ export const LoginPage = (props: Props) => {
             value={value}
             onChangeText={onChange}
             placeholder="Username"
+            placeholderTextColor="#bbbbbb"
+            secureTextEntry={true}
           />
         )}
       />

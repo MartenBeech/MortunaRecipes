@@ -155,7 +155,8 @@ export const EditRecipePage = (props: Props) => {
         </View>
         <TextInput
           placeholder="Title"
-          style={styles.titleInput}
+          placeholderTextColor="#bbbbbb"
+          style={{ ...styles.input, ...styles.titleInput }}
           value={title}
           onChangeText={setTitle}
         />
@@ -166,7 +167,8 @@ export const EditRecipePage = (props: Props) => {
             <View style={styles.row} key={`${"ingredient"}-${index}`}>
               <TextInput
                 placeholder="Name"
-                style={styles.nameInput}
+                placeholderTextColor="#bbbbbb"
+                style={{ ...styles.input, ...styles.nameInput }}
                 value={ingredient.name}
                 onChangeText={(value) => {
                   const newIngredients = [...ingredients];
@@ -176,7 +178,8 @@ export const EditRecipePage = (props: Props) => {
               />
               <TextInput
                 placeholder="Amount"
-                style={styles.amountInput}
+                placeholderTextColor="#bbbbbb"
+                style={{ ...styles.input, ...styles.amountInput }}
                 value={ingredient.amount}
                 onChangeText={(value) => {
                   const newIngredients = [...ingredients];
@@ -234,33 +237,25 @@ const styles = StyleSheet.create({
     fontSize: 24,
     width: "73%",
   },
-  titleInput: {
+  input: {
     height: 40,
     marginVertical: 12,
-    marginHorizontal: "4%",
     borderWidth: 1,
     padding: 10,
     borderRadius: 5,
+  },
+  titleInput: {
+    marginHorizontal: "4%",
   },
   nameInput: {
-    height: 40,
-    marginVertical: 12,
     marginLeft: "4%",
     marginRight: "2%",
-    borderWidth: 1,
-    padding: 10,
     width: "63%",
-    borderRadius: 5,
   },
   amountInput: {
-    height: 40,
-    marginVertical: 12,
     marginLeft: "2%",
     marginRight: "4%",
-    borderWidth: 1,
-    padding: 10,
     width: "25%",
-    borderRadius: 5,
   },
   lineBreak: {
     marginBottom: 20,
