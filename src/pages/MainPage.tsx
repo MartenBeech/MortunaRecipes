@@ -6,10 +6,10 @@ import {
   View,
   StyleSheet,
   ScrollView,
+  TextInput,
 } from "react-native";
 import { Recipe } from "../entities/recipe";
 import { getRecipes } from "../firebase/recipe";
-import { useIsFocused } from "@react-navigation/native";
 import { getImages } from "../firebase/storage";
 import { RecipeImage } from "../entities/image";
 
@@ -20,19 +20,34 @@ interface Props {
 export const MainPage = (props: Props) => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [images, setImages] = useState<RecipeImage[]>([]);
-  const isFocused = useIsFocused();
+  const [searchFieldVisibility, setSearchFieldVisibility] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
-    if (isFocused) {
+    const delayDebounceFn = setTimeout(() => {
       getRecipes().then((response) => {
+        if (searchInput) {
+          const searchStrings = searchInput.split(", ");
+          searchStrings.forEach((searchString) => {
+            response = response.filter((recipe) =>
+              recipe.ingredients.find((ingredient) =>
+                ingredient.name
+                  .toLocaleLowerCase()
+                  .includes(searchString.toLocaleLowerCase())
+              )
+            );
+          });
+        }
         response.sort((a, b) => a.id - b.id);
         setRecipes(response);
       });
       getImages().then((response) => {
         setImages(response);
       });
-    }
-  }, [isFocused]);
+    }, 300);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchInput]);
 
   return (
     <ScrollView>
@@ -47,10 +62,33 @@ export const MainPage = (props: Props) => {
                 });
               }}
             >
-              <Text style={styles.headerIcon}>+</Text>
+              <Image
+                style={styles.headerIconPlus}
+                source={require("../images/PlusIcon.png")}
+              />
+            </Pressable>
+            <Pressable
+              onPress={() => {
+                setSearchFieldVisibility(!searchFieldVisibility);
+                setSearchInput("");
+              }}
+            >
+              <Image
+                style={styles.headerIconSearch}
+                source={require("../images/SearchIcon.png")}
+              />
             </Pressable>
           </View>
         </View>
+        {searchFieldVisibility && (
+          <TextInput
+            placeholder="Search for ingredients, separated by ', '"
+            placeholderTextColor="#bbbbbb"
+            style={styles.searchField}
+            value={searchInput}
+            onChangeText={setSearchInput}
+          />
+        )}
         <View style={styles.recipes}>
           {recipes.map((recipe, index) => {
             const recipeImage = images.find(
@@ -119,9 +157,28 @@ const styles = StyleSheet.create({
     marginLeft: "10%",
   },
   logo: { height: 150, width: 150, resizeMode: "contain", marginLeft: "30%" },
-  headerIcon: {
-    fontSize: 40,
-    color: "#4A9FCE",
+  headerIconPlus: {
+    height: 25,
+    width: 25,
+    resizeMode: "contain",
+    tintColor: "#4A9FCE",
     marginRight: "10%",
+    marginTop: 20,
+  },
+  headerIconSearch: {
+    height: 30,
+    width: 30,
+    resizeMode: "contain",
+    tintColor: "#4A9FCE",
+    marginRight: "10%",
+    marginTop: 20,
+  },
+  searchField: {
+    height: 40,
+    marginVertical: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 5,
+    marginHorizontal: "4%",
   },
 });
