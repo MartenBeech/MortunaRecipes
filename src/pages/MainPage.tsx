@@ -12,6 +12,7 @@ import { Recipe } from "../entities/recipe";
 import { getRecipes } from "../firebase/recipe";
 import { getImages } from "../firebase/storage";
 import { RecipeImage } from "../entities/image";
+import { useIsFocused } from "@react-navigation/native";
 
 interface Props {
   navigation: any;
@@ -22,32 +23,36 @@ export const MainPage = (props: Props) => {
   const [images, setImages] = useState<RecipeImage[]>([]);
   const [searchFieldVisibility, setSearchFieldVisibility] = useState(false);
   const [searchInput, setSearchInput] = useState("");
+  const isFocused = useIsFocused();
 
   useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      getRecipes().then((response) => {
-        if (searchInput) {
-          const searchStrings = searchInput.split(", ");
-          searchStrings.forEach((searchString) => {
-            response = response.filter((recipe) =>
-              recipe.ingredients.find((ingredient) =>
-                ingredient.name
-                  .toLocaleLowerCase()
-                  .includes(searchString.toLocaleLowerCase())
-              )
-            );
-          });
-        }
-        response.sort((a, b) => a.id - b.id);
-        setRecipes(response);
-      });
-      getImages().then((response) => {
-        setImages(response);
-      });
-    }, 300);
+    if (isFocused) {
+      const delayTime = searchInput ? 300 : 0;
+      const delayDebounceFn = setTimeout(() => {
+        getRecipes().then((response) => {
+          if (searchInput) {
+            const searchStrings = searchInput.split(", ");
+            searchStrings.forEach((searchString) => {
+              response = response.filter((recipe) =>
+                recipe.ingredients.find((ingredient) =>
+                  ingredient.name
+                    .toLocaleLowerCase()
+                    .includes(searchString.toLocaleLowerCase())
+                )
+              );
+            });
+          }
+          response.sort((a, b) => a.id - b.id);
+          setRecipes(response);
+        });
+        getImages().then((response) => {
+          setImages(response);
+        });
+      }, delayTime);
 
-    return () => clearTimeout(delayDebounceFn);
-  }, [searchInput]);
+      return () => clearTimeout(delayDebounceFn);
+    }
+  }, [searchInput, isFocused]);
 
   return (
     <ScrollView>
