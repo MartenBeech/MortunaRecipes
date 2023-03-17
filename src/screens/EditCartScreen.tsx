@@ -9,7 +9,7 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-import { clearCart, getCart, updateCart } from "../firebase/cart";
+import { createEmptyCart, getCart, updateCart } from "../firebase/cart";
 import { CheckedIngredient } from "../entities/cart";
 
 interface Props {
@@ -66,7 +66,7 @@ export const EditCartScreen = (props: Props) => {
   };
 
   const trash = async () => {
-    await clearCart();
+    await createEmptyCart();
     props.navigation.navigate("CartScreen");
   };
 

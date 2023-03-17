@@ -12,7 +12,7 @@ export async function getCart() {
     const snapData = docSnap.data();
     returnValue = snapData as Cart;
   } else {
-    await clearCart();
+    await createEmptyCart();
   }
   return returnValue;
 }
@@ -41,6 +41,6 @@ export async function updateCart(props: Cart) {
   } as Cart);
 }
 
-export async function clearCart() {
+export async function createEmptyCart() {
   await setDoc(doc(db, "users", loginName, "carts", "1"), { ingredients: [] });
 }
