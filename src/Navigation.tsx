@@ -1,13 +1,13 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { MainPage } from "./src/pages/MainPage";
-import { ViewRecipePage } from "./src/pages/ViewRecipePage";
-import { EditRecipePage } from "./src/pages/EditRecipePage";
-import { LoginPage } from "./src/pages/LoginPage";
-import { CartPage } from "./src/pages/CartPage";
+import { MainScreen } from "./screens/MainScreen";
+import { ViewRecipeScreen } from "./screens/ViewRecipeScreen";
+import { EditRecipeScreen } from "./screens/EditRecipeScreen";
+import { LoginScreen } from "./screens/LoginScreen";
+import { CartScreen } from "./screens/CartScreen";
 import { Pressable, Image, StyleSheet, View } from "react-native";
-import { EditCartPage } from "./src/pages/EditCartPage";
+import { EditCartScreen } from "./screens/EditCartScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,22 +21,22 @@ export const Routing = () => {
               <View style={styles.row}>
                 <Pressable
                   onPress={() => {
-                    navigation.navigate("MainPage");
+                    navigation.navigate("MainScreen");
                   }}
                 >
                   <Image
                     style={styles.headerIcon}
-                    source={require("./src/images/Logo.png")}
+                    source={require("./images/Logo.png")}
                   />
                 </Pressable>
                 <Pressable
                   onPress={() => {
-                    navigation.navigate("CartPage");
+                    navigation.navigate("CartScreen");
                   }}
                 >
                   <Image
                     style={styles.headerIcon}
-                    source={require("./src/images/Cart.png")}
+                    source={require("./images/Cart.png")}
                   />
                 </Pressable>
               </View>
@@ -45,42 +45,42 @@ export const Routing = () => {
       >
         <Stack.Screen
           name="Login"
-          component={LoginPage}
+          component={LoginScreen}
           options={{
             title: "Login",
           }}
         />
         <Stack.Screen
-          name="MainPage"
-          component={MainPage}
+          name="MainScreen"
+          component={MainScreen}
           options={{
             title: "Home",
           }}
         />
         <Stack.Screen
-          name="ViewRecipePage"
-          component={ViewRecipePage}
+          name="ViewRecipeScreen"
+          component={ViewRecipeScreen}
           options={{
             title: "View Recipe",
           }}
         />
         <Stack.Screen
-          name="EditRecipePage"
-          component={EditRecipePage}
+          name="EditRecipeScreen"
+          component={EditRecipeScreen}
           options={{
             title: "Edit Recipe",
           }}
         />
         <Stack.Screen
-          name="CartPage"
-          component={CartPage}
+          name="CartScreen"
+          component={CartScreen}
           options={{
             title: "Cart",
           }}
         />
         <Stack.Screen
-          name="EditCartPage"
-          component={EditCartPage}
+          name="EditCartScreen"
+          component={EditCartScreen}
           options={{
             title: "Edit Cart",
           }}

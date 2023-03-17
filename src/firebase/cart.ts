@@ -1,6 +1,6 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { Cart, CreateCart } from "../entities/cart";
-import { loginName } from "../pages/LoginPage";
+import { loginName } from "../screens/LoginScreen";
 import { db } from "./config";
 
 export async function getCart() {

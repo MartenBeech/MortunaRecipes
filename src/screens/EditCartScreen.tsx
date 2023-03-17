@@ -17,7 +17,7 @@ interface Props {
   route: any;
 }
 
-export const EditCartPage = (props: Props) => {
+export const EditCartScreen = (props: Props) => {
   const [ingredients, setIngredients] = useState<CheckedIngredient[]>([
     { name: "", amount: "", checked: false },
     { name: "", amount: "", checked: false },
@@ -30,7 +30,6 @@ export const EditCartPage = (props: Props) => {
     if (isFocused) {
       getCart().then((response) => {
         if (response) {
-          console.log(response);
           checkEmptyIngredients({ ingredients: response.ingredients });
         }
       });
@@ -63,12 +62,12 @@ export const EditCartPage = (props: Props) => {
     await updateCart({
       ingredients: filteredIngredients,
     });
-    props.navigation.navigate("CartPage");
+    props.navigation.navigate("CartScreen");
   };
 
   const trash = async () => {
     await clearCart();
-    props.navigation.navigate("CartPage");
+    props.navigation.navigate("CartScreen");
   };
 
   return (

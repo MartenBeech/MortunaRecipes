@@ -23,8 +23,8 @@ interface Props {
   route: any;
 }
 
-export const EditRecipePage = (props: Props) => {
-  const pageId: number = props.route.params.name ?? 0;
+export const EditRecipeScreen = (props: Props) => {
+  const screenId: number = props.route.params.name ?? 0;
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState<Ingredient[]>([
     { name: "", amount: "" },
@@ -37,8 +37,8 @@ export const EditRecipePage = (props: Props) => {
 
   useEffect(() => {
     if (isFocused) {
-      if (pageId > 0) {
-        getRecipe(pageId).then((response) => {
+      if (screenId > 0) {
+        getRecipe(screenId).then((response) => {
           if (response) {
             setTitle(response.title);
             checkEmptyIngredients({ ingredients: response.ingredients });
@@ -76,19 +76,19 @@ export const EditRecipePage = (props: Props) => {
       return;
     }
     const id = await createRecipe({
-      id: pageId,
+      id: screenId,
       ingredients: filteredIngredients,
       title: title,
       image: image,
     });
-    props.navigation.navigate("MainPage", {
+    props.navigation.navigate("MainScreen", {
       name: id,
     });
   };
 
   const trash = async () => {
-    await deleteRecipe(pageId);
-    props.navigation.navigate("MainPage");
+    await deleteRecipe(screenId);
+    props.navigation.navigate("MainScreen");
   };
 
   const submitImage = async (result: ImagePickerResult) => {
@@ -97,7 +97,7 @@ export const EditRecipePage = (props: Props) => {
       if (data.uri) {
         const response = await fetch(data.uri);
         const blob = await response.blob();
-        const newImage = new File([blob], pageId.toString(), {
+        const newImage = new File([blob], screenId.toString(), {
           type: blob.type,
         }) as any;
         setImage(newImage);
@@ -179,7 +179,7 @@ export const EditRecipePage = (props: Props) => {
           <Pressable style={styles.submitButton} onPress={submit}>
             <View style={styles.row}>
               <Text style={styles.submitText}>
-                {pageId ? "Save Changes" : "Create Recipe"}
+                {screenId ? "Save Changes" : "Create Recipe"}
               </Text>
               <Image
                 style={styles.buttonImage}
@@ -188,7 +188,7 @@ export const EditRecipePage = (props: Props) => {
             </View>
           </Pressable>
         </View>
-        {pageId > 0 && (
+        {screenId > 0 && (
           <View style={styles.submission}>
             <Pressable style={styles.trashButton} onPress={trash}>
               <View style={styles.row}>

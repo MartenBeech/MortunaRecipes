@@ -12,7 +12,7 @@ interface Form {
 
 export let loginName = "";
 
-export const LoginPage = (props: Props) => {
+export const LoginScreen = (props: Props) => {
   const {
     control,
     handleSubmit,
@@ -28,7 +28,7 @@ export const LoginPage = (props: Props) => {
     const auth = await Auth({ username });
     if (auth) {
       loginName = username;
-      props.navigation.navigate("MainPage");
+      props.navigation.navigate("MainScreen");
     } else {
       alert("Username does not exist");
     }

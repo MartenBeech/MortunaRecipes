@@ -7,7 +7,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { CreateRecipe, Recipe } from "../entities/recipe";
-import { loginName } from "../pages/LoginPage";
+import { loginName } from "../screens/LoginScreen";
 import { db } from "./config";
 import { uploadImage } from "./storage";
 

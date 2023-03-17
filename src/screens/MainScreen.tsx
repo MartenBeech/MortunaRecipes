@@ -18,7 +18,7 @@ interface Props {
   navigation: any;
 }
 
-export const MainPage = (props: Props) => {
+export const MainScreen = (props: Props) => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [images, setImages] = useState<RecipeImage[]>([]);
   const [searchFieldVisibility, setSearchFieldVisibility] = useState(false);
@@ -62,7 +62,7 @@ export const MainPage = (props: Props) => {
           <View style={styles.column}>
             <Pressable
               onPress={() => {
-                props.navigation.navigate("EditRecipePage", {
+                props.navigation.navigate("EditRecipeScreen", {
                   name: 0,
                 });
               }}
@@ -104,7 +104,7 @@ export const MainPage = (props: Props) => {
                 style={styles.box}
                 key={`${recipe.id}-${index}`}
                 onPress={() => {
-                  props.navigation.navigate("ViewRecipePage", {
+                  props.navigation.navigate("ViewRecipeScreen", {
                     name: recipe.id,
                   });
                 }}

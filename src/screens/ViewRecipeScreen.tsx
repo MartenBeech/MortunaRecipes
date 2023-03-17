@@ -18,7 +18,7 @@ interface Props {
   route: any;
 }
 
-export const ViewRecipePage = (props: Props) => {
+export const ViewRecipeScreen = (props: Props) => {
   const [recipe, setRecipe] = useState<Recipe>();
   const [checkboxesChecked, setCheckboxesChecked] = useState<boolean[]>([]);
   const isFocused = useIsFocused();
@@ -53,7 +53,7 @@ export const ViewRecipePage = (props: Props) => {
         return;
       }
       await createCart({ ingredients: filteredIngredients });
-      props.navigation.navigate("CartPage");
+      props.navigation.navigate("CartScreen");
     }
   };
 
@@ -65,7 +65,7 @@ export const ViewRecipePage = (props: Props) => {
             <Text style={styles.title}>{recipe.title}</Text>
             <Pressable
               onPress={() => {
-                props.navigation.navigate("EditRecipePage", {
+                props.navigation.navigate("EditRecipeScreen", {
                   name: recipe.id,
                 });
               }}

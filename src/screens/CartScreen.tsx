@@ -17,7 +17,7 @@ interface Props {
   route: any;
 }
 
-export const CartPage = (props: Props) => {
+export const CartScreen = (props: Props) => {
   const [cart, setCart] = useState<Cart>({ ingredients: [] });
   const isFocused = useIsFocused();
 
@@ -44,7 +44,7 @@ export const CartPage = (props: Props) => {
             <Text style={styles.title}>Cart</Text>
             <Pressable
               onPress={() => {
-                props.navigation.navigate("EditCartPage");
+                props.navigation.navigate("EditCartScreen");
               }}
             >
               <Image
