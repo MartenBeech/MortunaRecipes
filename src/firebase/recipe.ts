@@ -63,3 +63,15 @@ export async function createRecipe(props: CreateRecipe) {
 export async function deleteRecipe(id: number) {
   await deleteDoc(doc(db, "users", loginName, "recipes", id.toString()));
 }
+
+export async function updateLastUsed(recipeId: number) {
+  const recipe = await getRecipe(recipeId);
+  if (recipe) {
+    await setDoc(doc(db, "users", loginName, "recipes", recipe.id.toString()), {
+      id: recipe.id,
+      title: recipe.title,
+      ingredients: recipe.ingredients,
+      lastUsed: new Date().toString(),
+    } as Recipe);
+  }
+}

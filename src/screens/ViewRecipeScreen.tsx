@@ -11,7 +11,8 @@ import {
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { Recipe } from "../entities/recipe";
 import { createCart } from "../firebase/cart";
-import { getRecipe } from "../firebase/recipe";
+import { getRecipe, updateLastUsed } from "../firebase/recipe";
+import { getYearMonthDay } from "../services/dateService";
 
 interface Props {
   navigation: any;
@@ -53,6 +54,7 @@ export const ViewRecipeScreen = (props: Props) => {
         return;
       }
       await createCart({ ingredients: filteredIngredients });
+      await updateLastUsed(recipe.id);
       props.navigation.navigate("CartScreen");
     }
   };
@@ -76,6 +78,9 @@ export const ViewRecipeScreen = (props: Props) => {
               />
             </Pressable>
           </View>
+          <Text style={styles.lastUsedText}>{`Last used: ${getYearMonthDay(
+            recipe.lastUsed
+          )}`}</Text>
           <View style={styles.lineBreak} />
           {recipe.ingredients.map((ingredient, index) => {
             return (
@@ -184,5 +189,10 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     marginRight: 8,
     color: "#FFFFFF",
+  },
+  lastUsedText: {
+    fontSize: 12,
+    fontStyle: "italic",
+    color: "#666666",
   },
 });

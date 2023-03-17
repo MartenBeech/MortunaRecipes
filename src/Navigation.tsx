@@ -1,7 +1,7 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { MainScreen } from "./screens/MainScreen";
+import { HomeScreen } from "./screens/HomeScreen";
 import { ViewRecipeScreen } from "./screens/ViewRecipeScreen";
 import { EditRecipeScreen } from "./screens/EditRecipeScreen";
 import { LoginScreen } from "./screens/LoginScreen";
@@ -21,7 +21,7 @@ export const Routing = () => {
               <View style={styles.row}>
                 <Pressable
                   onPress={() => {
-                    navigation.navigate("MainScreen");
+                    navigation.navigate("HomeScreen");
                   }}
                 >
                   <Image
@@ -51,8 +51,8 @@ export const Routing = () => {
           }}
         />
         <Stack.Screen
-          name="MainScreen"
-          component={MainScreen}
+          name="HomeScreen"
+          component={HomeScreen}
           options={{
             title: "Home",
           }}

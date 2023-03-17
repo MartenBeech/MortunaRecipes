@@ -117,7 +117,7 @@ export const EditCartScreen = (props: Props) => {
         <View style={styles.submission}>
           <Pressable style={styles.trashButton} onPress={trash}>
             <View style={styles.row}>
-              <Text style={styles.submitText}>Clear</Text>
+              <Text style={styles.submitText}>Clear Cart</Text>
               <Image
                 style={styles.buttonImage}
                 source={require("../images/Trash.png")}

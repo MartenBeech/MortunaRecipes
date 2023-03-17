@@ -81,14 +81,14 @@ export const EditRecipeScreen = (props: Props) => {
       title: title,
       image: image,
     });
-    props.navigation.navigate("MainScreen", {
+    props.navigation.navigate("ViewRecipeScreen", {
       name: id,
     });
   };
 
   const trash = async () => {
     await deleteRecipe(screenId);
-    props.navigation.navigate("MainScreen");
+    props.navigation.navigate("HomeScreen");
   };
 
   const submitImage = async (result: ImagePickerResult) => {

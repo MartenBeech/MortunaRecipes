@@ -18,7 +18,7 @@ interface Props {
   navigation: any;
 }
 
-export const MainScreen = (props: Props) => {
+export const HomeScreen = (props: Props) => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [images, setImages] = useState<RecipeImage[]>([]);
   const [searchFieldVisibility, setSearchFieldVisibility] = useState(false);
@@ -42,7 +42,12 @@ export const MainScreen = (props: Props) => {
               );
             });
           }
-          response.sort((a, b) => a.id - b.id);
+          response.sort((a, b) => {
+            if (new Date(a.lastUsed) > new Date(b.lastUsed)) {
+              return 1;
+            }
+            return -1;
+          });
           setRecipes(response);
         });
         getImages().then((response) => {

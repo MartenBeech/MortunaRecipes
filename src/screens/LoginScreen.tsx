@@ -28,7 +28,7 @@ export const LoginScreen = (props: Props) => {
     const auth = await Auth({ username });
     if (auth) {
       loginName = username;
-      props.navigation.navigate("MainScreen");
+      props.navigation.navigate("HomeScreen");
     } else {
       alert("Username does not exist");
     }
