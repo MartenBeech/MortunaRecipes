@@ -150,8 +150,11 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   image: {
-    resizeMode: "contain",
+    resizeMode: "cover",
     height: 120,
+    width: "100%",
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
   row: {
     flexDirection: "row",
