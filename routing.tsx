@@ -7,6 +7,7 @@ import { EditRecipePage } from "./src/pages/EditRecipePage";
 import { LoginPage } from "./src/pages/LoginPage";
 import { CartPage } from "./src/pages/CartPage";
 import { Pressable, Image, StyleSheet, View } from "react-native";
+import { EditCartPage } from "./src/pages/EditCartPage";
 
 const Stack = createNativeStackNavigator();
 
@@ -75,6 +76,13 @@ export const Routing = () => {
           component={CartPage}
           options={{
             title: "Cart",
+          }}
+        />
+        <Stack.Screen
+          name="EditCartPage"
+          component={EditCartPage}
+          options={{
+            title: "Edit Cart",
           }}
         />
       </Stack.Navigator>

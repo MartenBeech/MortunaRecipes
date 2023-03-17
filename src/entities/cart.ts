@@ -8,6 +8,6 @@ export interface CreateCart {
   ingredients: Ingredient[];
 }
 
-interface CheckedIngredient extends Ingredient {
+export interface CheckedIngredient extends Ingredient {
   checked: boolean;
 }

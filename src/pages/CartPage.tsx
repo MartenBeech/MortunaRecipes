@@ -1,6 +1,13 @@
 import { useIsFocused } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
-import { Text, StyleSheet, View, ScrollView } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  ScrollView,
+  Pressable,
+  Image,
+} from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { Cart } from "../entities/cart";
 import { getCart, updateCart } from "../firebase/cart";
@@ -33,7 +40,19 @@ export const CartPage = (props: Props) => {
     <ScrollView>
       {cart && (
         <View style={styles.container}>
-          <Text style={styles.title}>Cart</Text>
+          <View style={styles.row}>
+            <Text style={styles.title}>Cart</Text>
+            <Pressable
+              onPress={() => {
+                props.navigation.navigate("EditCartPage");
+              }}
+            >
+              <Image
+                source={require("../images/Pencil.png")}
+                style={styles.pencilImage}
+              />
+            </Pressable>
+          </View>
           <View style={styles.lineBreak} />
           {cart.ingredients.map((ingredient, index) => {
             return (
@@ -75,5 +94,11 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  pencilImage: {
+    height: 40,
+    width: 40,
+    resizeMode: "contain",
+    marginRight: 12,
   },
 });

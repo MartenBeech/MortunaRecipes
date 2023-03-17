@@ -10,7 +10,6 @@ import {
   Image,
 } from "react-native";
 import { Ingredient } from "../entities/recipe";
-import { createCart } from "../firebase/cart";
 import { createRecipe, deleteRecipe, getRecipe } from "../firebase/recipe";
 import {
   ImagePickerResult,
@@ -69,11 +68,11 @@ export const EditRecipePage = (props: Props) => {
       (ingredient) => !!ingredient.name
     );
     if (title === "") {
-      alert("Recipe needs a title");
+      alert("You need a Title");
       return;
     }
     if (filteredIngredients.length === 0) {
-      alert("Can't submit no ingredients");
+      alert("You need ingredients");
       return;
     }
     const id = await createRecipe({
@@ -82,23 +81,9 @@ export const EditRecipePage = (props: Props) => {
       title: title,
       image: image,
     });
-    props.navigation.navigate("ViewRecipePage", {
+    props.navigation.navigate("MainPage", {
       name: id,
     });
-  };
-
-  const addToCart = async () => {
-    const splicedIngredients = ingredients.filter(
-      (ingredient) => !!ingredient.name
-    );
-    if (splicedIngredients.length === 0) {
-      alert("Can't add no ingredients");
-      return;
-    }
-    await createCart({
-      ingredients: splicedIngredients,
-    });
-    props.navigation.navigate("CartPage");
   };
 
   const trash = async () => {
@@ -193,19 +178,12 @@ export const EditRecipePage = (props: Props) => {
         <View style={styles.submission}>
           <Pressable style={styles.submitButton} onPress={submit}>
             <View style={styles.row}>
-              <Text style={styles.submitText}>Submit</Text>
+              <Text style={styles.submitText}>
+                {pageId ? "Save Changes" : "Create Recipe"}
+              </Text>
               <Image
                 style={styles.buttonImage}
                 source={require("../images/Save.png")}
-              ></Image>
-            </View>
-          </Pressable>
-          <Pressable style={styles.submitButton} onPress={addToCart}>
-            <View style={styles.row}>
-              <Text style={styles.submitText}>Add to Cart</Text>
-              <Image
-                style={styles.buttonImage}
-                source={require("../images/Cart.png")}
               ></Image>
             </View>
           </Pressable>

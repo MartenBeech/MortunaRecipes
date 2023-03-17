@@ -11,6 +11,8 @@ export async function getCart() {
   if (docSnap.exists()) {
     const snapData = docSnap.data();
     returnValue = snapData as Cart;
+  } else {
+    await clearCart();
   }
   return returnValue;
 }
@@ -37,4 +39,8 @@ export async function updateCart(props: Cart) {
   await setDoc(doc(db, "users", loginName, "carts", "1"), {
     ...props,
   } as Cart);
+}
+
+export async function clearCart() {
+  await setDoc(doc(db, "users", loginName, "carts", "1"), { ingredients: [] });
 }
