@@ -36,8 +36,9 @@ export const HomeScreen = (props: Props) => {
       const delayDebounceFn = setTimeout(() => {
         getRecipes().then((recipes) => {
           if (searchInput) {
-            const searchStrings = searchInput.split(", ");
+            const searchStrings = searchInput.split(",");
             searchStrings.forEach((searchString) => {
+              searchString = searchString.replace(" ", "");
               recipes = recipes.filter((recipe) =>
                 recipe.ingredients.find((ingredient) =>
                   ingredient.name
@@ -97,7 +98,7 @@ export const HomeScreen = (props: Props) => {
         </View>
         {searchFieldVisibility && (
           <TextInput
-            placeholder="Search for ingredients, separated by ', '"
+            placeholder="Search for ingredients, separated by comma"
             size="xl"
             value={searchInput}
             onChangeText={setSearchInput}
