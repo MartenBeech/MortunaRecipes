@@ -19,7 +19,5 @@ export const getYearMonthDay = (stringDate: string) => {
   const monthString = monthArray[month];
   const year = date.getFullYear();
 
-  console.log(monthString);
-
   return `${monthString} ${day} ${year}`;
 };
