@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     minHeight: 40,
     marginVertical: 12,
     marginLeft: "4%",
-    width: "100%",
+    width: "90%",
   },
   lineBreak: {
     marginBottom: 20,
