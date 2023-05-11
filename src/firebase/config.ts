@@ -1,14 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { REACT_APP_FIREBASE_CONFIG } from "../../env";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAdHH2IafyZHioQc0Rn6_jJ5fyNM1CrCvw",
-  authDomain: "mortunarecipes.firebaseapp.com",
-  projectId: "mortunarecipes",
-  storageBucket: "mortunarecipes.appspot.com",
-  messagingSenderId: "672641012153",
-  measurementId: "G-0H0TQH3VQH",
-};
+const firebaseConfig = REACT_APP_FIREBASE_CONFIG;
 
 export const app = initializeApp(firebaseConfig);
 
