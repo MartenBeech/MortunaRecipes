@@ -1,34 +1,25 @@
 export const getYearMonthDay = (stringDate: string) => {
   const date = new Date(stringDate);
   const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const monthString =
-    month === 1
-      ? "Jan"
-      : 2
-      ? "Feb"
-      : 3
-      ? "Mar"
-      : 4
-      ? "Apr"
-      : 5
-      ? "May"
-      : 6
-      ? "Jun"
-      : 7
-      ? "Jul"
-      : 8
-      ? "Aug"
-      : 9
-      ? "Sep"
-      : 10
-      ? "Oct"
-      : 11
-      ? "Nov"
-      : 12
-      ? "Dec"
-      : "Undefined";
+  const month = date.getMonth();
+  const monthArray = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const monthString = monthArray[month];
   const year = date.getFullYear();
+
+  console.log(monthString);
 
   return `${monthString} ${day} ${year}`;
 };
