@@ -6,7 +6,6 @@ import {
   View,
   StyleSheet,
   ScrollView,
-  TextInput,
 } from "react-native";
 import { Recipe } from "../entities/recipe";
 import { getRecipes } from "../firebase/recipe";
@@ -15,6 +14,7 @@ import { RecipeImage } from "../entities/image";
 import { useIsFocused } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../Navigation";
+import { TextInput } from "../components/TextInput";
 
 type NavigationRoute = NativeStackScreenProps<RootStackParamList, "HomeScreen">;
 
@@ -98,8 +98,7 @@ export const HomeScreen = (props: Props) => {
         {searchFieldVisibility && (
           <TextInput
             placeholder="Search for ingredients, separated by ', '"
-            placeholderTextColor="#bbbbbb"
-            style={styles.searchField}
+            size="xl"
             value={searchInput}
             onChangeText={setSearchInput}
           />
@@ -190,13 +189,5 @@ const styles = StyleSheet.create({
     tintColor: "#4A9FCE",
     marginRight: "10%",
     marginTop: 20,
-  },
-  searchField: {
-    height: 40,
-    marginVertical: 12,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 5,
-    marginHorizontal: "4%",
   },
 });

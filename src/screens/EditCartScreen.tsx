@@ -2,7 +2,6 @@ import { useIsFocused } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import {
   Text,
-  TextInput,
   StyleSheet,
   View,
   Pressable,
@@ -13,6 +12,7 @@ import { createEmptyCart, getCart, updateCart } from "../firebase/cart";
 import { CheckedIngredient } from "../entities/cart";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../Navigation";
+import { TextInput } from "../components/TextInput";
 
 type NavigationRoute = NativeStackScreenProps<
   RootStackParamList,
@@ -86,9 +86,8 @@ export const EditCartScreen = (props: Props) => {
             <View style={styles.row} key={`${"ingredient"}-${index}`}>
               <TextInput
                 placeholder="Name"
-                placeholderTextColor="#bbbbbb"
-                style={{ ...styles.input, ...styles.nameInput }}
                 value={ingredient.name}
+                size="large"
                 onChangeText={(value) => {
                   const newIngredients = [...ingredients];
                   newIngredients[index].name = value;
@@ -97,9 +96,8 @@ export const EditCartScreen = (props: Props) => {
               />
               <TextInput
                 placeholder="Amount"
-                placeholderTextColor="#bbbbbb"
-                style={{ ...styles.input, ...styles.amountInput }}
                 value={ingredient.amount}
+                size="small"
                 onChangeText={(value) => {
                   const newIngredients = [...ingredients];
                   newIngredients[index].amount = value;
@@ -145,26 +143,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     width: "73%",
-  },
-  input: {
-    height: 40,
-    marginVertical: 12,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 5,
-  },
-  titleInput: {
-    marginHorizontal: "4%",
-  },
-  nameInput: {
-    marginLeft: "4%",
-    marginRight: "2%",
-    width: "63%",
-  },
-  amountInput: {
-    marginLeft: "2%",
-    marginRight: "4%",
-    width: "25%",
   },
   lineBreak: {
     marginBottom: 20,

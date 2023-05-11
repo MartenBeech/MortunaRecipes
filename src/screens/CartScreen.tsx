@@ -66,7 +66,7 @@ export const CartScreen = (props: Props) => {
                   isChecked={ingredient.checked}
                   disableBuiltInState
                   text={`${ingredient.name}${
-                    ingredient.amount ? ` (${ingredient.amount})` : ""
+                    ingredient.amount ? `  ---  ${ingredient.amount}` : ""
                   }`}
                   onPress={() => onClickCheckbox(index)}
                 />
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     minHeight: 40,
     marginVertical: 12,
     marginLeft: "4%",
+    width: "100%",
   },
   lineBreak: {
     marginBottom: 20,
