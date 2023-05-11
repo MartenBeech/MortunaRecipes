@@ -34,11 +34,11 @@ export const HomeScreen = (props: Props) => {
     if (isFocused) {
       const delayTime = searchInput ? 300 : 0;
       const delayDebounceFn = setTimeout(() => {
-        getRecipes().then((response) => {
+        getRecipes().then((recipes) => {
           if (searchInput) {
             const searchStrings = searchInput.split(", ");
             searchStrings.forEach((searchString) => {
-              response = response.filter((recipe) =>
+              recipes = recipes.filter((recipe) =>
                 recipe.ingredients.find((ingredient) =>
                   ingredient.name
                     .toLocaleLowerCase()
@@ -47,13 +47,13 @@ export const HomeScreen = (props: Props) => {
               );
             });
           }
-          response.sort((a, b) => {
+          recipes.sort((a, b) => {
             if (new Date(a.lastUsed) > new Date(b.lastUsed)) {
               return 1;
             }
             return -1;
           });
-          setRecipes(response);
+          setRecipes(recipes);
         });
         getImages().then((response) => {
           setImages(response);
