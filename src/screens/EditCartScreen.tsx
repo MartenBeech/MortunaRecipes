@@ -144,9 +144,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     width: "73%",
   },
-  lineBreak: {
-    marginBottom: 20,
-  },
+
   row: {
     flexDirection: "row",
   },
@@ -174,12 +172,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginHorizontal: 8,
   },
-  imageUploader: {
-    height: 40,
-    width: 40,
-    resizeMode: "contain",
-    marginRight: "2%",
-  },
+
   buttonImage: {
     height: 30,
     width: 30,

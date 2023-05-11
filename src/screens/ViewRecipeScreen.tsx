@@ -130,14 +130,6 @@ const styles = StyleSheet.create({
     width: "80%",
     marginRight: "5%",
   },
-  titleInput: {
-    height: 40,
-    marginVertical: 12,
-    marginHorizontal: "4%",
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 5,
-  },
   checkboxBuy: {
     height: 40,
     marginVertical: 12,
