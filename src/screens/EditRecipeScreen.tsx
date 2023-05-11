@@ -17,14 +17,21 @@ import {
   MediaTypeOptions,
   launchCameraAsync,
 } from "expo-image-picker";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../Navigation";
+
+type NavigationRoute = NativeStackScreenProps<
+  RootStackParamList,
+  "EditRecipeScreen"
+>;
 
 interface Props {
-  navigation: any;
-  route: any;
+  navigation: NavigationRoute["navigation"];
+  route: NavigationRoute["route"];
 }
 
 export const EditRecipeScreen = (props: Props) => {
-  const screenId: number = props.route.params.name ?? 0;
+  const screenId: number = props.route.params.id ?? 0;
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState<Ingredient[]>([
     { name: "", amount: "" },
@@ -82,7 +89,7 @@ export const EditRecipeScreen = (props: Props) => {
       image: image,
     });
     props.navigation.navigate("ViewRecipeScreen", {
-      name: id,
+      id: id,
     });
   };
 

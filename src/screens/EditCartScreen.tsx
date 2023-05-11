@@ -11,10 +11,17 @@ import {
 } from "react-native";
 import { createEmptyCart, getCart, updateCart } from "../firebase/cart";
 import { CheckedIngredient } from "../entities/cart";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../Navigation";
+
+type NavigationRoute = NativeStackScreenProps<
+  RootStackParamList,
+  "EditCartScreen"
+>;
 
 interface Props {
-  navigation: any;
-  route: any;
+  navigation: NavigationRoute["navigation"];
+  route: NavigationRoute["route"];
 }
 
 export const EditCartScreen = (props: Props) => {

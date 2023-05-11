@@ -13,9 +13,14 @@ import { getRecipes } from "../firebase/recipe";
 import { getImages } from "../firebase/storage";
 import { RecipeImage } from "../entities/image";
 import { useIsFocused } from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../Navigation";
+
+type NavigationRoute = NativeStackScreenProps<RootStackParamList, "HomeScreen">;
 
 interface Props {
-  navigation: any;
+  navigation: NavigationRoute["navigation"];
+  route: NavigationRoute["route"];
 }
 
 export const HomeScreen = (props: Props) => {
@@ -68,7 +73,7 @@ export const HomeScreen = (props: Props) => {
             <Pressable
               onPress={() => {
                 props.navigation.navigate("EditRecipeScreen", {
-                  name: 0,
+                  id: 0,
                 });
               }}
             >
@@ -110,7 +115,7 @@ export const HomeScreen = (props: Props) => {
                 key={`${recipe.id}-${index}`}
                 onPress={() => {
                   props.navigation.navigate("ViewRecipeScreen", {
-                    name: recipe.id,
+                    id: recipe.id,
                   });
                 }}
               >

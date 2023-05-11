@@ -1,6 +1,5 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HomeScreen } from "./screens/HomeScreen";
 import { ViewRecipeScreen } from "./screens/ViewRecipeScreen";
 import { EditRecipeScreen } from "./screens/EditRecipeScreen";
@@ -8,16 +7,26 @@ import { LoginScreen } from "./screens/LoginScreen";
 import { CartScreen } from "./screens/CartScreen";
 import { Pressable, Image, StyleSheet, View } from "react-native";
 import { EditCartScreen } from "./screens/EditCartScreen";
+import { createStackNavigator } from "@react-navigation/stack";
 
-const Stack = createNativeStackNavigator();
+export type RootStackParamList = {
+  CartScreen: undefined;
+  EditCartScreen: undefined;
+  EditRecipeScreen: { id: number };
+  HomeScreen: undefined;
+  LoginScreen: undefined;
+  ViewRecipeScreen: { id: number };
+};
 
-export const Routing = () => {
+const RootStack = createStackNavigator<RootStackParamList>();
+
+export const Navigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator
+      <RootStack.Navigator
         screenOptions={({ route, navigation }) => ({
           headerRight: () =>
-            route.name != "Login" && (
+            route.name != "LoginScreen" && (
               <View style={styles.row}>
                 <Pressable
                   onPress={() => {
@@ -43,49 +52,49 @@ export const Routing = () => {
             ),
         })}
       >
-        <Stack.Screen
-          name="Login"
+        <RootStack.Screen
+          name="LoginScreen"
           component={LoginScreen}
           options={{
             title: "Login",
           }}
         />
-        <Stack.Screen
+        <RootStack.Screen
           name="HomeScreen"
           component={HomeScreen}
           options={{
             title: "Home",
           }}
         />
-        <Stack.Screen
+        <RootStack.Screen
           name="ViewRecipeScreen"
           component={ViewRecipeScreen}
           options={{
             title: "View Recipe",
           }}
         />
-        <Stack.Screen
+        <RootStack.Screen
           name="EditRecipeScreen"
           component={EditRecipeScreen}
           options={{
             title: "Edit Recipe",
           }}
         />
-        <Stack.Screen
+        <RootStack.Screen
           name="CartScreen"
           component={CartScreen}
           options={{
             title: "Cart",
           }}
         />
-        <Stack.Screen
+        <RootStack.Screen
           name="EditCartScreen"
           component={EditCartScreen}
           options={{
             title: "Edit Cart",
           }}
         />
-      </Stack.Navigator>
+      </RootStack.Navigator>
     </NavigationContainer>
   );
 };

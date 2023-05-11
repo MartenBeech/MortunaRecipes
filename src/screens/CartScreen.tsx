@@ -1,4 +1,5 @@
 import { useIsFocused } from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState, useEffect } from "react";
 import {
   Text,
@@ -11,10 +12,13 @@ import {
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { Cart } from "../entities/cart";
 import { getCart, updateCart } from "../firebase/cart";
+import { RootStackParamList } from "../Navigation";
+
+type NavigationRoute = NativeStackScreenProps<RootStackParamList, "CartScreen">;
 
 interface Props {
-  navigation: any;
-  route: any;
+  navigation: NavigationRoute["navigation"];
+  route: NavigationRoute["route"];
 }
 
 export const CartScreen = (props: Props) => {

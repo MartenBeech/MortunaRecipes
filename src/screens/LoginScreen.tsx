@@ -1,9 +1,17 @@
 import { Text, View, Pressable, TextInput, StyleSheet } from "react-native";
 import { Auth } from "../firebase/auth";
 import { useForm, Controller } from "react-hook-form";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../Navigation";
+
+type NavigationRoute = NativeStackScreenProps<
+  RootStackParamList,
+  "LoginScreen"
+>;
 
 interface Props {
-  navigation: any;
+  navigation: NavigationRoute["navigation"];
+  route: NavigationRoute["route"];
 }
 
 interface Form {

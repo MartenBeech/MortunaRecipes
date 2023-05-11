@@ -1,4 +1,5 @@
 import { useIsFocused } from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState, useEffect } from "react";
 import {
   Text,
@@ -12,11 +13,17 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { Recipe } from "../entities/recipe";
 import { createCart } from "../firebase/cart";
 import { getRecipe, updateLastUsed } from "../firebase/recipe";
+import { RootStackParamList } from "../Navigation";
 import { getYearMonthDay } from "../services/dateService";
 
+type NavigationRoute = NativeStackScreenProps<
+  RootStackParamList,
+  "ViewRecipeScreen"
+>;
+
 interface Props {
-  navigation: any;
-  route: any;
+  navigation: NavigationRoute["navigation"];
+  route: NavigationRoute["route"];
 }
 
 export const ViewRecipeScreen = (props: Props) => {
@@ -26,7 +33,7 @@ export const ViewRecipeScreen = (props: Props) => {
 
   useEffect(() => {
     if (isFocused) {
-      getRecipe(props.route.params.name).then((response) => {
+      getRecipe(props.route.params.id).then((response) => {
         setRecipe(response);
 
         const newCheckboxesChecked: boolean[] = [];
@@ -50,7 +57,7 @@ export const ViewRecipeScreen = (props: Props) => {
         (ingredient, index) => !!checkboxesChecked[index]
       );
       if (filteredIngredients.length === 0) {
-        alert("Can't add no ingredients");
+        alert("Please add ingredients");
         return;
       }
       await createCart({ ingredients: filteredIngredients });
@@ -68,7 +75,7 @@ export const ViewRecipeScreen = (props: Props) => {
             <Pressable
               onPress={() => {
                 props.navigation.navigate("EditRecipeScreen", {
-                  name: recipe.id,
+                  id: recipe.id,
                 });
               }}
             >
