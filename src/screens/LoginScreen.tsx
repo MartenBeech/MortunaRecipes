@@ -1,8 +1,9 @@
 import { Text, View, Pressable, TextInput, StyleSheet } from "react-native";
 import { Auth } from "../firebase/auth";
-import { useForm, Controller } from "react-hook-form";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../Navigation";
+import { useEffect, useState } from "react";
+import { getStoreValue, setStorePair } from "../store";
 
 type NavigationRoute = NativeStackScreenProps<
   RootStackParamList,
@@ -14,28 +15,24 @@ interface Props {
   route: NavigationRoute["route"];
 }
 
-interface Form {
-  username: string;
-}
-
 export let loginName = "";
 
 export const LoginScreen = (props: Props) => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Form>({
-    defaultValues: {
-      username: "",
-    },
-  });
+  const [username, setUsername] = useState("");
 
-  const onSubmit = async (data: Form) => {
-    const username = data.username;
+  useEffect(() => {
+    const getStore = async () => {
+      const storeValue = await getStoreValue("username");
+      setUsername(storeValue);
+    };
+    getStore();
+  }, []);
+
+  const onSubmit = async () => {
     const auth = await Auth({ username });
     if (auth) {
       loginName = username;
+      setStorePair("username", username);
       props.navigation.navigate("HomeScreen");
     } else {
       alert("Username does not exist");
@@ -44,26 +41,16 @@ export const LoginScreen = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      <Controller
-        control={control}
-        name="username"
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={styles.inputField}
-            onBlur={onBlur}
-            value={value}
-            onChangeText={onChange}
-            placeholder="Username"
-            placeholderTextColor="#bbbbbb"
-            secureTextEntry={true}
-          />
-        )}
+      <TextInput
+        style={styles.inputField}
+        value={username}
+        onChangeText={(value) => setUsername(value)}
+        placeholder="Username"
+        placeholderTextColor="#bbbbbb"
+        secureTextEntry={true}
       />
       <View style={styles.lineBreak} />
-      <Pressable style={styles.loginButton} onPress={handleSubmit(onSubmit)}>
+      <Pressable style={styles.loginButton} onPress={onSubmit}>
         <Text style={styles.loginButtonText}>Login</Text>
       </Pressable>
     </View>
